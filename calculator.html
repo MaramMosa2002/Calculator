@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maram | calculator</title>
+  <style>
+
+input{
+    width: 180px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+body {
+padding-top:50px; 
+background-color: rgb(163, 138, 221);
+}
+
+button{
+    padding: 5px 20px;
+    width: 60px;
+    margin-bottom: 5px;
+    background-color: rgb(248, 155, 228);
+    color: black;
+    border: solid 1px rgb(88, 209, 193) ;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color:rgb(49, 204, 204)  ;
+}
+ </style>
+
+</head>
+<body>
+    
+<input  id="show" type="number" readonly />
+<br>
+<input  id="sho" type="number"  readonly />
+   
+
+
+<br>
+<button  id="0"  onclick="GetN(0)"> 0</button>
+<button id="1"   onclick="GetN(1)"> 1</button>
+<button id="2"   onclick="GetN(2)" > 2</button>
+<br>
+<button id="3"  onclick="GetN(3)" > 3</button>
+<button id="4"  onclick="GetN(4)"> 4</button>
+<button id="5"  onclick="GetN(5)"> 5</button>
+<br>
+<button id="6"  onclick="GetN(6)"> 6</button>
+<button id="7"  onclick="GetN(7)"> 7</button>
+<button id="8"  onclick="GetN(8)"> 8</button>
+<br>
+<button id="9"  onclick="GetN(9)" > 9</button>
+<button id="mod" onclick= "Getop( 'mod' )" >%</button>
+<button   onclick="window.location.reload()">C</button>
+
+<br>
+<button  id="min" onclick="Getop('min')" >-</button>
+<button id="plu"  onclick="Getop( 'plu' )">+</button>
+<button id="mul" onclick="Getop('mul')"> *</button>
+<br>
+<button id="div" onclick="Getop('div')" > /</button>
+<button onclick="dele( )"   > del</button>
+<button id="equ"   onclick="calc()" style=" background-color: rgb(211, 29, 120);"> = </button>
+ 
+
+<script>
+
+var show = document.getElementById("show");
+var PrevNum =0;
+var opertype='';
+var val ={prev :null , new :null, total: null}
+var list=false;
+
+function GetN(num){
+    if(list){
+        var res ;
+        if(val.new){
+           
+          res =val.new +'' +num;
+          val.new= res;
+          show.value =res;
+
+        }else{
+            res =val.prev +'' +num;
+          val.prev= res;
+          show.value =res;
+        }
+
+    }else{
+            show.value =num;
+        if(val.prev){
+        val.new =num  ; 
+
+    } else{
+        
+        val.prev =num;
+    }
+    list=true; 
+    }
+  
+}
+
+function dele(){
+sho.value=sho,value.slice(0,-1);
+}
+
+function Getop(oper){
+    console.log(val)
+    opertype =oper;
+     list=false;
+}
+
+function calc(){
+    console.log('cal',val);
+    if(!val.new){
+        return;
+    }
+    if(val.new && val.prev && opertype){
+    
+      if(opertype === "plu"){
+        var Newval= Number(val.prev )+ Number(val.new );
+        sho.value =Newval;
+        val.prev=Newval;
+      }
+      if(opertype === "min"){
+        var Newval= Number(val.prev) -Number(val.new );
+        sho.value =Newval;
+        val.prev=Newval;
+      }
+      if(opertype === "mul"){
+        var Newval= Number(val.prev )* Number(val.new );
+        sho.value =Newval;
+        val.prev=Newval;
+      }
+      if(opertype === "div"){
+        var Newval= Number(val.prev) / Number(val.new) ;
+        sho.value =Newval;
+        val.prev=Newval;
+      } 
+      if(opertype === "mod"){
+        var Newval= Number(val.prev) % Number(val.new) ;
+        sho.value =Newval;
+        val.prev=Newval;
+      
+    }
+   
+}
+list = false;
+
+}
+
+</script>
+
+</body>
+</html>
